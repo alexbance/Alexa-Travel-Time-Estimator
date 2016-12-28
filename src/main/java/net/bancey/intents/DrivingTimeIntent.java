@@ -1,6 +1,7 @@
 package net.bancey.intents;
 
 import com.amazon.speech.speechlet.SpeechletResponse;
+import com.amazon.speech.ui.PlainTextOutputSpeech;
 import com.google.maps.DistanceMatrixApiRequest;
 import com.google.maps.GeoApiContext;
 import com.google.maps.model.*;
@@ -42,6 +43,9 @@ public class DrivingTimeIntent extends AlexaTrafficIntent {
                 }
             }
         }
-        return null;
+        String speechText = "Hello!";
+        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+        speech.setText(speechText);
+        return SpeechletResponse.newTellResponse(speech);
     }
 }
