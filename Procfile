@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -Dserver.port=$PORT -jar target/Alexa-Traffic-1.0.0.jar
+web: java $JAVA_OPTS -Dserver.port=$PORT -jar target/Alexa-Traffic-0.0.1.jar
