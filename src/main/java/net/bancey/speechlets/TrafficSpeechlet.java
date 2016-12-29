@@ -70,7 +70,7 @@ public class TrafficSpeechlet implements Speechlet {
     }
 
     private SpeechletResponse onLaunchResponse() {
-        String speechText = "Welcome to the Alexa Traffic Skill, you can say 'driving time to destination'.";
+        String speechText = "Welcome to the Alexa Traffic Skill, example usage: 'Alexa, ask traffic for driving eta from Bisley to Woking Surrey'.";
         String repromptText = "What would you like to do?";
 
         PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
