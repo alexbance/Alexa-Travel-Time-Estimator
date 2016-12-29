@@ -5,8 +5,9 @@ import com.amazon.speech.slu.Slot;
 import com.amazon.speech.speechlet.*;
 import com.amazon.speech.ui.PlainTextOutputSpeech;
 import com.amazon.speech.ui.Reprompt;
+import com.google.maps.model.TravelMode;
 import net.bancey.intents.AlexaTrafficIntent;
-import net.bancey.intents.DrivingTimeIntent;
+import net.bancey.intents.TravelTimeIntent;
 
 import java.util.Map;
 
@@ -18,7 +19,8 @@ public class TrafficSpeechlet implements Speechlet {
 
     private static final String DEST_KEY = "Destination";
     private static final String ORIGIN_KEY = "Origin";
-    private AlexaTrafficIntent[] intents = {new DrivingTimeIntent("GetDrivingETAIntent")};
+    private static final String TRAVEL_MODE_KEY = "TravelMode";
+    private AlexaTrafficIntent[] intents = {new TravelTimeIntent("TravelETAIntent")};
 
     @Override
     public void onSessionStarted(SessionStartedRequest sessionStartedRequest, Session session) throws SpeechletException {
@@ -45,7 +47,8 @@ public class TrafficSpeechlet implements Speechlet {
                     Map<String, Slot> slots = intent.getSlots();
                     Slot destinationSlot = slots.get(DEST_KEY);
                     Slot originSlot = slots.get(ORIGIN_KEY);
-                    return alexaTrafficIntent.handle(originSlot.getValue(), destinationSlot.getValue());
+                    Slot travelMode = slots.get(TRAVEL_MODE_KEY);
+                    return alexaTrafficIntent.handle(originSlot.getValue(), destinationSlot.getValue(), TravelMode.valueOf(travelMode.getValue()));
                 }
             }
         }
