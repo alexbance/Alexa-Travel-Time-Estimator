@@ -23,7 +23,7 @@ public class DrivingTimeIntent extends AlexaTrafficIntent {
         GeoApiContext context = new GMapsApp().getContext();
         DistanceMatrixApiRequest request = new DistanceMatrixApiRequest(context)
                 .origins("1A South Road, Bisley, Woking, GU24 9ES")
-                .destinations(destination)
+                .destinations(destination + ", GB")
                 .mode(TravelMode.DRIVING)
                 .trafficModel(TrafficModel.PESSIMISTIC)
                 .departureTime(new DateTime(System.currentTimeMillis()));

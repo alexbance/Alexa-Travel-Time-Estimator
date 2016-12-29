@@ -1,11 +1,14 @@
 package net.bancey.speechlets;
 
 import com.amazon.speech.slu.Intent;
+import com.amazon.speech.slu.Slot;
 import com.amazon.speech.speechlet.*;
 import com.amazon.speech.ui.PlainTextOutputSpeech;
 import com.amazon.speech.ui.Reprompt;
 import net.bancey.intents.AlexaTrafficIntent;
 import net.bancey.intents.DrivingTimeIntent;
+
+import java.util.Map;
 
 /**
  * AlexaTraffic
@@ -13,7 +16,8 @@ import net.bancey.intents.DrivingTimeIntent;
  */
 public class TrafficSpeechlet implements Speechlet {
 
-    AlexaTrafficIntent[] intents = {new DrivingTimeIntent("GetDrivingETAIntent")};
+    private AlexaTrafficIntent[] intents = {new DrivingTimeIntent("GetDrivingETAIntent")};
+    private static final String DEST_KEY = "Destination";
 
     @Override
     public void onSessionStarted(SessionStartedRequest sessionStartedRequest, Session session) throws SpeechletException {
@@ -37,6 +41,11 @@ public class TrafficSpeechlet implements Speechlet {
         } else {
             for (AlexaTrafficIntent alexaTrafficIntent : intents) {
                 if(alexaTrafficIntent.getName().equals(intent.getName())) {
+                    if(alexaTrafficIntent.getName().equals("GetDrivingETAIntent")) {
+                        Map<String, Slot> slots = intent.getSlots();
+                        Slot destinationSlot = slots.get(DEST_KEY);
+                        return alexaTrafficIntent.handle(destinationSlot.getValue());
+                    }
                     return alexaTrafficIntent.handle("Holly Avenue, West Byfleet");
                 }
             }
