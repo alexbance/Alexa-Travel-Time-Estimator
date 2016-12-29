@@ -48,16 +48,19 @@ public class TrafficSpeechlet implements Speechlet {
                     Slot destinationSlot = slots.get(DEST_KEY);
                     Slot originSlot = slots.get(ORIGIN_KEY);
                     Slot travelMode = slots.get(TRAVEL_MODE_KEY);
-                    switch(travelMode.getValue()) {
-                        case "walking":
-                            return alexaTrafficIntent.handle(originSlot.getValue(), destinationSlot.getValue(), TravelMode.WALKING);
-                        case "driving":
-                            return alexaTrafficIntent.handle(originSlot.getValue(), destinationSlot.getValue(), TravelMode.DRIVING);
-                        case "bicycling":
-                            return alexaTrafficIntent.handle(originSlot.getValue(), destinationSlot.getValue(), TravelMode.BICYCLING);
-                        default:
-                            return alexaTrafficIntent.handle(originSlot.getValue(), destinationSlot.getValue(), TravelMode.DRIVING);
+                    if(travelMode != null) {
+                        switch(travelMode.getValue()) {
+                            case "walking":
+                                return alexaTrafficIntent.handle(originSlot.getValue(), destinationSlot.getValue(), TravelMode.WALKING);
+                            case "driving":
+                                return alexaTrafficIntent.handle(originSlot.getValue(), destinationSlot.getValue(), TravelMode.DRIVING);
+                            case "bicycling":
+                                return alexaTrafficIntent.handle(originSlot.getValue(), destinationSlot.getValue(), TravelMode.BICYCLING);
+                            default:
+                                return alexaTrafficIntent.handle(originSlot.getValue(), destinationSlot.getValue(), TravelMode.DRIVING);
+                        }
                     }
+                    return alexaTrafficIntent.handle(originSlot.getValue(), destinationSlot.getValue(), TravelMode.DRIVING);
                 }
             }
         }
