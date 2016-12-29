@@ -51,7 +51,7 @@ public class TrafficSpeechlet implements Speechlet {
                     if(travelMode == null) {
                         return alexaTrafficIntent.handle(originSlot.getValue(), destinationSlot.getValue(), TravelMode.DRIVING);
                     }
-                    return alexaTrafficIntent.handle(originSlot.getValue(), destinationSlot.getValue(), TravelMode.valueOf(travelMode.getValue()));
+                    return alexaTrafficIntent.handle(originSlot.getValue(), destinationSlot.getValue(), TravelMode.valueOf(travelMode.getValue().toUpperCase()));
                 }
             }
         }
