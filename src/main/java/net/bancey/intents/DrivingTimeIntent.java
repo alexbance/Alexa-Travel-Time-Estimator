@@ -3,6 +3,7 @@ package net.bancey.intents;
 import com.amazon.speech.speechlet.SpeechletResponse;
 import com.amazon.speech.ui.PlainTextOutputSpeech;
 import com.amazon.speech.ui.SimpleCard;
+import com.amazon.speech.ui.SsmlOutputSpeech;
 import com.google.maps.DistanceMatrixApiRequest;
 import com.google.maps.GeoApiContext;
 import com.google.maps.model.*;
@@ -52,8 +53,8 @@ public class DrivingTimeIntent extends AlexaTrafficIntent {
                 }
             }
         }
-        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-        speech.setText(speechText);
+        SsmlOutputSpeech speech = new SsmlOutputSpeech();
+        speech.setSsml(speechText);
 
         SimpleCard card = new SimpleCard();
         card.setTitle("Travel between " + origin + " and " + destination + ".");
