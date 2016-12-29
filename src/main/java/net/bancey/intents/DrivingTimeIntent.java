@@ -2,6 +2,7 @@ package net.bancey.intents;
 
 import com.amazon.speech.speechlet.SpeechletResponse;
 import com.amazon.speech.ui.PlainTextOutputSpeech;
+import com.amazon.speech.ui.SimpleCard;
 import com.google.maps.DistanceMatrixApiRequest;
 import com.google.maps.GeoApiContext;
 import com.google.maps.model.*;
@@ -35,17 +36,22 @@ public class DrivingTimeIntent extends AlexaTrafficIntent {
             matrix = null;
             ex.printStackTrace();
         }
+        String speechText = "Sorry, I couldn't calculate the ETA.";
         if (matrix != null) {
             for (DistanceMatrixRow row : matrix.rows) {
-                System.out.println(row);
                 for(DistanceMatrixElement element: row.elements) {
+                    speechText = "There is " + element.distance + " between " + origin + " and " + destination + ". It will take you approximately " + element.durationInTraffic + " to reach " + destination;
                     System.out.println("Distance: " + element.distance + " Duration: " + element.duration + " Duration in traffic: " + element.durationInTraffic);
                 }
             }
         }
-        String speechText = "Hello!";
         PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
         speech.setText(speechText);
-        return SpeechletResponse.newTellResponse(speech);
+
+        SimpleCard card = new SimpleCard();
+        card.setTitle("Travel between " + origin + " and " + destination + ".");
+        card.setContent(speechText);
+
+        return SpeechletResponse.newTellResponse(speech, card);
     }
 }
