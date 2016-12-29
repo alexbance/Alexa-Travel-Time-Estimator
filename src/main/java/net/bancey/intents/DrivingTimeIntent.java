@@ -41,7 +41,9 @@ public class DrivingTimeIntent extends AlexaTrafficIntent {
             for (DistanceMatrixRow row : matrix.rows) {
                 for(DistanceMatrixElement element: row.elements) {
                     DateTime eta = new DateTime(System.currentTimeMillis());
+                    System.out.println(eta);
                     eta.plus(element.durationInTraffic.inSeconds);
+                    System.out.println(eta);
                     speechText = "There is " + element.distance + " between " + origin + " and " + destination + ". It will take you approximately " + element.durationInTraffic + " to reach " + destination + ". Your ETA is " + eta.toLocalTime();
                     System.out.println("Distance: " + element.distance + " Duration: " + element.duration + " Duration in traffic: " + element.durationInTraffic);
                 }
