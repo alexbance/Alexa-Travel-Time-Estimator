@@ -42,9 +42,15 @@ public class TravelTimeIntent extends AlexaTrafficIntent {
             for (DistanceMatrixRow row : matrix.rows) {
                 for(DistanceMatrixElement element: row.elements) {
                     DateTime eta = new DateTime(System.currentTimeMillis());
-                    eta = eta.plusSeconds((int)element.durationInTraffic.inSeconds);
-                    cardText = "There is " + element.distance + " between " + origin + " and " + destination + ". It will take you approximately " + element.durationInTraffic + " to reach " + destination + " via " + travelMode.toString() + ". Your ETA is " + eta.hourOfDay().getAsText() + ":" + eta.minuteOfHour().getAsText();
-                    speechText = "<speak>There is " + element.distance + " between " + origin + " and " + destination + ". It will take you approximately " + element.durationInTraffic + " to reach " + destination + " via " + travelMode.toString() + ". Your ETA is <say-as interpret-as=\"time\">" + eta.hourOfDay().getAsText() + ":" + eta.minuteOfHour().getAsText() + "</say-as></speak>";
+                    if(travelMode.equals(TravelMode.DRIVING)) {
+                        eta = eta.plusSeconds((int)element.durationInTraffic.inSeconds);
+                        cardText = "There is " + element.distance + " between " + origin + " and " + destination + ". It will take you approximately " + element.durationInTraffic + " to reach " + destination + " via " + travelMode.toString() + ". Your ETA is " + eta.hourOfDay().getAsText() + ":" + eta.minuteOfHour().getAsText();
+                        speechText = "<speak>There is " + element.distance + " between " + origin + " and " + destination + ". It will take you approximately " + element.durationInTraffic + " to reach " + destination + " via " + travelMode.toString() + ". Your ETA is <say-as interpret-as=\"time\">" + eta.hourOfDay().getAsText() + ":" + eta.minuteOfHour().getAsText() + "</say-as></speak>";
+                    } else {
+                        eta = eta.plusSeconds((int)element.duration.inSeconds);
+                        cardText = "There is " + element.distance + " between " + origin + " and " + destination + ". It will take you approximately " + element.duration + " to reach " + destination + " via " + travelMode.toString() + ". Your ETA is " + eta.hourOfDay().getAsText() + ":" + eta.minuteOfHour().getAsText();
+                        speechText = "<speak>There is " + element.distance + " between " + origin + " and " + destination + ". It will take you approximately " + element.duration + " to reach " + destination + " via " + travelMode.toString() + ". Your ETA is <say-as interpret-as=\"time\">" + eta.hourOfDay().getAsText() + ":" + eta.minuteOfHour().getAsText() + "</say-as></speak>";
+                    }
                 }
             }
         }
