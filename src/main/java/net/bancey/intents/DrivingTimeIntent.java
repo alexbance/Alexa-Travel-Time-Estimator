@@ -47,8 +47,8 @@ public class DrivingTimeIntent extends AlexaTrafficIntent {
                     eta = eta.plusSeconds((int)element.durationInTraffic.inSeconds);
                     System.out.println(element.durationInTraffic.inSeconds);
                     System.out.println(eta);
-                    cardText = "There is " + element.distance + " between " + origin + " and " + destination + ". It will take you approximately " + element.durationInTraffic + " to reach " + destination + ". Your ETA is " + eta.toLocalTime();
-                    speechText = "<speak>There is " + element.distance + " between " + origin + " and " + destination + ". It will take you approximately " + element.durationInTraffic + " to reach " + destination + ". Your ETA is <say-as interpret-as=\"time\">" + eta.toLocalTime() + "</say-as></speak>";
+                    cardText = "There is " + element.distance + " between " + origin + " and " + destination + ". It will take you approximately " + element.durationInTraffic + " to reach " + destination + ". Your ETA is " + eta.hourOfDay() + ":" + eta.minuteOfHour();
+                    speechText = "<speak>There is " + element.distance + " between " + origin + " and " + destination + ". It will take you approximately " + element.durationInTraffic + " to reach " + destination + ". Your ETA is <say-as interpret-as=\"time\">" + eta.hourOfDay() + ":" + eta.minuteOfHour() + "</say-as></speak>";
                     System.out.println("Distance: " + element.distance + " Duration: " + element.duration + " Duration in traffic: " + element.durationInTraffic);
                 }
             }
