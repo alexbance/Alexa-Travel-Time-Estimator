@@ -19,10 +19,10 @@ public class DrivingTimeIntent extends AlexaTrafficIntent {
     }
 
     @Override
-    public SpeechletResponse handle(String destination) {
+    public SpeechletResponse handle(String origin, String destination) {
         GeoApiContext context = new GMapsApp().getContext();
         DistanceMatrixApiRequest request = new DistanceMatrixApiRequest(context)
-                .origins("1A South Road, Bisley, Woking, GU24 9ES")
+                .origins(origin + ", GB")
                 .destinations(destination + ", GB")
                 .mode(TravelMode.DRIVING)
                 .trafficModel(TrafficModel.PESSIMISTIC)

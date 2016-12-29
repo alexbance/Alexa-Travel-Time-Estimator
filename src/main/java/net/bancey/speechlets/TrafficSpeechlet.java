@@ -16,8 +16,9 @@ import java.util.Map;
  */
 public class TrafficSpeechlet implements Speechlet {
 
-    private AlexaTrafficIntent[] intents = {new DrivingTimeIntent("GetDrivingETAIntent")};
     private static final String DEST_KEY = "Destination";
+    private static final String ORIGIN_KEY = "Origin";
+    private AlexaTrafficIntent[] intents = {new DrivingTimeIntent("GetDrivingETAIntent")};
 
     @Override
     public void onSessionStarted(SessionStartedRequest sessionStartedRequest, Session session) throws SpeechletException {
@@ -40,13 +41,11 @@ public class TrafficSpeechlet implements Speechlet {
             return onLaunchResponse();
         } else {
             for (AlexaTrafficIntent alexaTrafficIntent : intents) {
-                if(alexaTrafficIntent.getName().equals(intent.getName())) {
-                    if(alexaTrafficIntent.getName().equals("GetDrivingETAIntent")) {
-                        Map<String, Slot> slots = intent.getSlots();
-                        Slot destinationSlot = slots.get(DEST_KEY);
-                        return alexaTrafficIntent.handle(destinationSlot.getValue());
-                    }
-                    return alexaTrafficIntent.handle("Holly Avenue, West Byfleet");
+                if (alexaTrafficIntent.getName().equals(intent.getName())) {
+                    Map<String, Slot> slots = intent.getSlots();
+                    Slot destinationSlot = slots.get(DEST_KEY);
+                    Slot originSlot = slots.get(ORIGIN_KEY);
+                    return alexaTrafficIntent.handle(originSlot.getValue(), destinationSlot.getValue());
                 }
             }
         }

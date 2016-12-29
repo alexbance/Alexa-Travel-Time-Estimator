@@ -14,7 +14,7 @@ public abstract class AlexaTrafficIntent {
         this.name = name;
     }
 
-    public abstract SpeechletResponse handle(String destination);
+    public abstract SpeechletResponse handle(String origin, String destination);
 
     public String getName() {
         return name;
