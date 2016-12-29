@@ -37,6 +37,7 @@ public class DrivingTimeIntent extends AlexaTrafficIntent {
             ex.printStackTrace();
         }
         String speechText = "Sorry, I couldn't calculate the ETA.";
+        String cardText = "Sorry, I couldn't calculate the ETA.";
         if (matrix != null) {
             for (DistanceMatrixRow row : matrix.rows) {
                 for(DistanceMatrixElement element: row.elements) {
@@ -45,7 +46,8 @@ public class DrivingTimeIntent extends AlexaTrafficIntent {
                     eta = eta.plusSeconds((int)element.durationInTraffic.inSeconds);
                     System.out.println(element.durationInTraffic.inSeconds);
                     System.out.println(eta);
-                    speechText = "There is " + element.distance + " between " + origin + " and " + destination + ". It will take you approximately " + element.durationInTraffic + " to reach " + destination + ". Your ETA is " + eta.toLocalTime();
+                    cardText = "There is " + element.distance + " between " + origin + " and " + destination + ". It will take you approximately " + element.durationInTraffic + " to reach " + destination + ". Your ETA is " + eta.toLocalTime();
+                    speechText = "<speak>There is " + element.distance + " between " + origin + " and " + destination + ". It will take you approximately " + element.durationInTraffic + " to reach " + destination + ". Your ETA is <say-as interpret-as=\"time\">" + eta.toLocalTime() + "</say-as></speak>";
                     System.out.println("Distance: " + element.distance + " Duration: " + element.duration + " Duration in traffic: " + element.durationInTraffic);
                 }
             }
@@ -55,7 +57,7 @@ public class DrivingTimeIntent extends AlexaTrafficIntent {
 
         SimpleCard card = new SimpleCard();
         card.setTitle("Travel between " + origin + " and " + destination + ".");
-        card.setContent(speechText);
+        card.setContent(cardText);
 
         return SpeechletResponse.newTellResponse(speech, card);
     }
