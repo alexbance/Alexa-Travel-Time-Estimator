@@ -48,7 +48,7 @@ public class TrafficSpeechlet implements Speechlet {
                     Slot destinationSlot = slots.get(DEST_KEY);
                     Slot originSlot = slots.get(ORIGIN_KEY);
                     Slot travelMode = slots.get(TRAVEL_MODE_KEY);
-                    if(travelMode != null) {
+                    if(travelMode.getValue() != null) {
                         switch(travelMode.getValue()) {
                             case "walking":
                                 return alexaTrafficIntent.handle(originSlot.getValue(), destinationSlot.getValue(), TravelMode.WALKING);
