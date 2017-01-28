@@ -35,12 +35,13 @@ public class TrafficSpeechlet implements Speechlet {
     @Override
     public SpeechletResponse onIntent(IntentRequest intentRequest, Session session) throws SpeechletException {
         Intent intent = intentRequest.getIntent();
+        System.out.println(intent.getName());
         if ("AMAZON.StopIntent".equals(intent.getName())) {
             return onExitResponse();
         } else if ("AMAZON.CancelIntent".equals(intent.getName())) {
             return onExitResponse();
         } else if ("AMAZON.HelpIntent".equals(intent.getName())) {
-            return onLaunchResponse();
+            return onHelpResponse();
         } else {
             for (AlexaTrafficIntent alexaTrafficIntent : intents) {
                 if (alexaTrafficIntent.getName().equals(intent.getName())) {
@@ -72,8 +73,8 @@ public class TrafficSpeechlet implements Speechlet {
         //Shutdown logic
     }
 
-    private SpeechletResponse onLaunchResponse() {
-        String speechText = "Welcome to the Alexa Traffic Skill, example usage: 'Alexa, ask traffic for driving eta from Bisley to Woking Surrey'.";
+    private SpeechletResponse onHelpResponse() {
+        String speechText = "Welcome! This skill allows you to get an ETA to travel from point A to point B. Example usage: 'Alexa, ask traffic for driving eta from Bisley to Woking Surrey'. You can substitute driving for walking or cycling, if you don't specify or the specified value is invalid driving will be used. Note this skill only works with GB locations.";
         String repromptText = "What would you like to do?";
 
         PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
@@ -84,6 +85,18 @@ public class TrafficSpeechlet implements Speechlet {
 
         Reprompt reprompt = new Reprompt();
         reprompt.setOutputSpeech(repromptSpeech);
+
+        return SpeechletResponse.newAskResponse(speech, reprompt);
+    }
+
+    private SpeechletResponse onLaunchResponse() {
+        String speechTest = "Hello, this is the travel time estimator skill! What would you like to do?";
+
+        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+        speech.setText(speechTest);
+
+        Reprompt reprompt = new Reprompt();
+        reprompt.setOutputSpeech(speech);
 
         return SpeechletResponse.newAskResponse(speech, reprompt);
     }
