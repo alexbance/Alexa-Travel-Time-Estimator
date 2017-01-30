@@ -49,11 +49,11 @@ public class TrafficSpeechlet implements Speechlet {
                     Slot destinationSlot = slots.get(DEST_KEY);
                     Slot originSlot = slots.get(ORIGIN_KEY);
                     Slot travelMode = slots.get(TRAVEL_MODE_KEY);
+                    if(originSlot.getValue() == null || originSlot.getValue().isEmpty() || destinationSlot.getValue() == null || destinationSlot.getValue().isEmpty()) {
+                        return onErrorResponse();
+                    }
+                    System.out.println(originSlot.getValue() + ":" + destinationSlot.getValue());
                     if(travelMode.getValue() != null) {
-                        if(originSlot.getValue() == null || destinationSlot.getValue() == null) {
-                            return onErrorResponse();
-                        }
-                        System.out.println(originSlot.getValue() + ":" + destinationSlot.getValue());
                         switch(travelMode.getValue()) {
                             case "walking":
                                 return alexaTrafficIntent.handle(originSlot.getValue(), destinationSlot.getValue(), TravelMode.WALKING);
