@@ -41,6 +41,11 @@ public class TravelTimeIntent extends AlexaTrafficIntent {
         if (matrix != null) {
             for (DistanceMatrixRow row : matrix.rows) {
                 for(DistanceMatrixElement element: row.elements) {
+                    if(element.status == DistanceMatrixElementStatus.NOT_FOUND) {
+                        cardText = "One of the locations your provided does not exist. Please try again.";
+                        speechText = "One of the locations you provided does not exist. Please try again.";
+                        break;
+                    }
                     DateTime eta = new DateTime(System.currentTimeMillis());
                     if(travelMode.equals(TravelMode.DRIVING)) {
                         eta = eta.plusSeconds((int)element.durationInTraffic.inSeconds);
