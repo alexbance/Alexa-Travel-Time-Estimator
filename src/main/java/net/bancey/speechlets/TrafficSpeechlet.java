@@ -50,6 +50,9 @@ public class TrafficSpeechlet implements Speechlet {
                     Slot originSlot = slots.get(ORIGIN_KEY);
                     Slot travelMode = slots.get(TRAVEL_MODE_KEY);
                     if(travelMode.getValue() != null) {
+                        if(originSlot.getValue() == null || destinationSlot.getValue() == null) {
+                            return onErrorResponse();
+                        }
                         switch(travelMode.getValue()) {
                             case "walking":
                                 return alexaTrafficIntent.handle(originSlot.getValue(), destinationSlot.getValue(), TravelMode.WALKING);
@@ -102,7 +105,7 @@ public class TrafficSpeechlet implements Speechlet {
     }
 
     private SpeechletResponse onErrorResponse() {
-        String speechText = "I encountered an error while processing your request.";
+        String speechText = "I encountered an error while processing your request. It could be that the locations you gave me are invalid?";
         String repromptText = "Please try again.";
 
         PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
