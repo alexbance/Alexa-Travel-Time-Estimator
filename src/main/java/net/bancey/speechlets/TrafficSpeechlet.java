@@ -53,6 +53,7 @@ public class TrafficSpeechlet implements Speechlet {
                         if(originSlot.getValue() == null || destinationSlot.getValue() == null) {
                             return onErrorResponse();
                         }
+                        System.out.println(originSlot.getValue() + ":" + destinationSlot.getValue());
                         switch(travelMode.getValue()) {
                             case "walking":
                                 return alexaTrafficIntent.handle(originSlot.getValue(), destinationSlot.getValue(), TravelMode.WALKING);
