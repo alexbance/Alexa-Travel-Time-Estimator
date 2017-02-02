@@ -79,7 +79,7 @@ public class TrafficSpeechlet implements Speechlet {
     }
 
     private SpeechletResponse onHelpResponse() {
-        String speechText = "Welcome! This skill allows you to get an ETA to travel from point A to point B. Example usage: 'ask traffic for driving eta from Bisley to Woking Surrey'. You can substitute driving for walking or cycling, if you don't specify or the specified value is invalid driving will be used. Note this skill only works with GB locations.";
+        String speechText = "<speak><s>Welcome!</s> <s>This skill allows you to get an ETA to travel from point A to point B.</s> <s>Example usage: 'ask traffic for driving eta from Bisley to Woking Surrey'.</s> <s>You can substitute driving for walking or cycling,<break strength=\"medium\" /> if you don't specify or the specified value is invalid driving will be used.</s> <s>Note this skill only works with GB locations.</s></speak>";
         String repromptText = "What would you like to do?";
 
         SsmlOutputSpeech speech = new SsmlOutputSpeech();
