@@ -5,6 +5,7 @@ import com.amazon.speech.slu.Slot;
 import com.amazon.speech.speechlet.*;
 import com.amazon.speech.ui.PlainTextOutputSpeech;
 import com.amazon.speech.ui.Reprompt;
+import com.amazon.speech.ui.SsmlOutputSpeech;
 import com.google.maps.model.TravelMode;
 import net.bancey.intents.AlexaTrafficIntent;
 import net.bancey.intents.TravelTimeIntent;
@@ -81,8 +82,8 @@ public class TrafficSpeechlet implements Speechlet {
         String speechText = "Welcome! This skill allows you to get an ETA to travel from point A to point B. Example usage: 'ask traffic for driving eta from Bisley to Woking Surrey'. You can substitute driving for walking or cycling, if you don't specify or the specified value is invalid driving will be used. Note this skill only works with GB locations.";
         String repromptText = "What would you like to do?";
 
-        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-        speech.setText(speechText);
+        SsmlOutputSpeech speech = new SsmlOutputSpeech();
+        speech.setSsml(speechText);
 
         PlainTextOutputSpeech repromptSpeech = new PlainTextOutputSpeech();
         repromptSpeech.setText(repromptText);
