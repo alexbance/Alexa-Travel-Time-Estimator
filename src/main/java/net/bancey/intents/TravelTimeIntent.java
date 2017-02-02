@@ -1,6 +1,7 @@
 package net.bancey.intents;
 
 import com.amazon.speech.speechlet.SpeechletResponse;
+import com.amazon.speech.ui.PlainTextOutputSpeech;
 import com.amazon.speech.ui.SimpleCard;
 import com.amazon.speech.ui.SsmlOutputSpeech;
 import com.google.maps.DistanceMatrixApiRequest;
@@ -43,7 +44,7 @@ public class TravelTimeIntent extends AlexaTrafficIntent {
                 for(DistanceMatrixElement element: row.elements) {
                     System.out.println(element.status.toString());
                     if(element.status == DistanceMatrixElementStatus.NOT_FOUND || element.status == DistanceMatrixElementStatus.ZERO_RESULTS) {
-                        cardText = "One of the locations your provided does not exist. Please try again.";
+                        cardText = "One of the locations you provided does not exist. Please try again.";
                         speechText = "One of the locations you provided does not exist. Please try again.";
                         break;
                     }
@@ -60,14 +61,19 @@ public class TravelTimeIntent extends AlexaTrafficIntent {
                 }
             }
         }
-        System.out.println(speechText);
-        SsmlOutputSpeech speech = new SsmlOutputSpeech();
-        speech.setSsml(speechText);
-
         SimpleCard card = new SimpleCard();
         card.setTitle("Travel between " + origin + " and " + destination + ".");
         card.setContent(cardText);
 
-        return SpeechletResponse.newTellResponse(speech, card);
+        System.out.println(speechText);
+        if(speechText.equalsIgnoreCase("One of the location you provided does not exist. Please try again.")) {
+            PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+            speech.setText(speechText);
+            return SpeechletResponse.newTellResponse(speech, card);
+        } else {
+            SsmlOutputSpeech speech = new SsmlOutputSpeech();
+            speech.setSsml(speechText);
+            return SpeechletResponse.newTellResponse(speech, card);
+        }
     }
 }
