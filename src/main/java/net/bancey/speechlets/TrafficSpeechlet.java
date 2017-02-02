@@ -59,7 +59,7 @@ public class TrafficSpeechlet implements Speechlet {
                                 return alexaTrafficIntent.handle(originSlot.getValue(), destinationSlot.getValue(), TravelMode.WALKING);
                             case "driving":
                                 return alexaTrafficIntent.handle(originSlot.getValue(), destinationSlot.getValue(), TravelMode.DRIVING);
-                            case "bicycling":
+                            case "cycling":
                                 return alexaTrafficIntent.handle(originSlot.getValue(), destinationSlot.getValue(), TravelMode.BICYCLING);
                             default:
                                 return alexaTrafficIntent.handle(originSlot.getValue(), destinationSlot.getValue(), TravelMode.DRIVING);
@@ -78,7 +78,7 @@ public class TrafficSpeechlet implements Speechlet {
     }
 
     private SpeechletResponse onHelpResponse() {
-        String speechText = "Welcome! This skill allows you to get an ETA to travel from point A to point B. Example usage: 'Alexa, ask traffic for driving eta from Bisley to Woking Surrey'. You can substitute driving for walking or cycling, if you don't specify or the specified value is invalid driving will be used. Note this skill only works with GB locations.";
+        String speechText = "Welcome! This skill allows you to get an ETA to travel from point A to point B. Example usage: 'ask traffic for driving eta from Bisley to Woking Surrey'. You can substitute driving for walking or cycling, if you don't specify or the specified value is invalid driving will be used. Note this skill only works with GB locations.";
         String repromptText = "What would you like to do?";
 
         PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
