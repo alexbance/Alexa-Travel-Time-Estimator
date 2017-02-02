@@ -66,7 +66,7 @@ public class TravelTimeIntent extends AlexaTrafficIntent {
         card.setContent(cardText);
 
         System.out.println(speechText);
-        if(speechText.equalsIgnoreCase("One of the location you provided does not exist. Please try again.")) {
+        if(speechText.equalsIgnoreCase("One of the locations you provided does not exist. Please try again.")) {
             PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
             speech.setText(speechText);
             return SpeechletResponse.newTellResponse(speech, card);
