@@ -60,6 +60,7 @@ public class TravelTimeIntent extends AlexaTrafficIntent {
                 }
             }
         }
+        System.out.println(speechText);
         SsmlOutputSpeech speech = new SsmlOutputSpeech();
         speech.setSsml(speechText);
 
