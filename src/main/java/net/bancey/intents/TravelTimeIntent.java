@@ -2,6 +2,7 @@ package net.bancey.intents;
 
 import com.amazon.speech.speechlet.SpeechletResponse;
 import com.amazon.speech.ui.PlainTextOutputSpeech;
+import com.amazon.speech.ui.Reprompt;
 import com.amazon.speech.ui.SimpleCard;
 import com.amazon.speech.ui.SsmlOutputSpeech;
 import com.google.maps.DistanceMatrixApiRequest;
@@ -68,8 +69,10 @@ public class TravelTimeIntent extends AlexaTrafficIntent {
         System.out.println(speechText);
         if(speechText.equalsIgnoreCase("One of the locations you provided does not exist. Please try again.")) {
             PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+            Reprompt reprompt = new Reprompt();
+            reprompt.setOutputSpeech(speech);
             speech.setText(speechText);
-            return SpeechletResponse.newTellResponse(speech, card);
+            return SpeechletResponse.newAskResponse(speech, reprompt, card);
         } else {
             SsmlOutputSpeech speech = new SsmlOutputSpeech();
             speech.setSsml(speechText);
